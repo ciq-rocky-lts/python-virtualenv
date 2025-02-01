@@ -1,0 +1,16 @@
+diff --git a/virtualenv.py b/virtualenv.py
+index 1d46506..68284f6 100755
+--- a/virtualenv.py
++++ b/virtualenv.py
+@@ -860,7 +860,10 @@ def install_wheel(project_names, py_executable, search_dirs=None,
+ 
+         import pip
+ 
+-        cert_data = pkgutil.get_data("pip._vendor.requests", "cacert.pem")
++        try:
++            cert_data = pkgutil.get_data("pip._vendor.requests", "cacert.pem")
++        except IOError:
++            cert_data = None
+         if cert_data is not None:
+             cert_file = tempfile.NamedTemporaryFile(delete=False)
+             cert_file.write(cert_data)
